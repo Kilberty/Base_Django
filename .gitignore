@@ -1,0 +1,170 @@
+# ===============================================
+# Python
+# ===============================================
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+__pycache__/
+*.pyc
+
+# ===============================================
+# Django
+# ===============================================
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+static_root/
+
+# ===============================================
+# Virtual Environment
+# ===============================================
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+pyvenv.cfg
+
+# ===============================================
+# Node.js / NPM
+# ===============================================
+node_modules/
+.node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# ===============================================
+# Vite / Build Output
+# ===============================================
+dist/
+dist-ssr/
+*.local
+.vite/
+/public/build
+/public/hot
+
+# ===============================================
+# Environment Variables
+# ===============================================
+.env
+.env.local
+.env.*.local
+*.env
+
+# ===============================================
+# IDEs / Editors
+# ===============================================
+# VS Code
+.vscode/
+*.code-workspace
+.history/
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+.idea_modules/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# ===============================================
+# OS Specific
+# ===============================================
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# ===============================================
+# Testing / Coverage
+# ===============================================
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# ===============================================
+# TypeScript
+# ===============================================
+*.tsbuildinfo
+
+# ===============================================
+# Backup / Temporary Files
+# ===============================================
+*.bak
+*.swp
+*.swo
+*.tmp
+tmp/
+temp/
+
+# ===============================================
+# Hot Module Replacement
+# ===============================================
+*.hot-update.json
+*.hot-update.js
+
+# ===============================================
+# Logs
+# ===============================================
+logs/
+*.log
+
+# ===============================================
+# Optional: Uncomment if needed
+# ===============================================
+# Package lock files
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Migration files (geralmente queremos versioná-los)
+# */migrations/*.py
+# */migrations/*.pyc
+# !*/migrations/__init__.py
