@@ -19,8 +19,9 @@ import Auth from "../Layout/Auth.vue";
 import Tables from "../Partials/Tables.vue";
 import Input from "../Components/Input.vue";
 import InputError from "../Components/InputError.vue";
+import FilterForm from "../Components/FilterForm.vue";
 import { useForm } from "@inertiajs/vue3";
-import { BForm, BRow } from "bootstrap-vue-next";
+import { BForm, BRow, BButton, BInputGroup } from "bootstrap-vue-next";
 //props são as informações da API para que essas informações sejam usadas na página, elas tem que ser definidas como props antes
 const props = defineProps({
   //usuario é a prop onde você pega as informações do usuário logado
@@ -45,6 +46,12 @@ const form = useForm({
   password2: ""
 });
 
+// form2 é outra instância de useForm, mas para os filtros de pesquisa
+// Separe sempre o formulário de cadastro do formulário de filtro
+const formFiltro = useForm({
+  nome: ""
+});
+
 //Isso aqui é um exemplo de ações que vão ser passadas nos botões de editar na tabela
 // a parte de criar as ações é manual realmente e exige algum conhecimento
 const acoes = [
@@ -67,6 +74,17 @@ function handleSave(event) {
      form.reset()
     },
     })
+}
+
+// Função para lidar com o submit do filtro
+// Usa formFiltro.get() para fazer uma requisição GET com os parâmetros do filtro
+function handleFilter() {
+  // O Inertia vai adicionar os parâmetros do filtro na URL como query params
+  // Exemplo: /usuarios/?nome=João
+  formFiltro.get('/usuarios/', {
+    preserveState: true, // Mantém o estado da página (não recarrega tudo)
+    preserveScroll: true, // Mantém a posição do scroll
+  });
 }
 </script>
 
@@ -151,6 +169,32 @@ function handleSave(event) {
       </BForm>
     </template>
     
+
+    <FilterForm @submit="handleFilter">
+      <template #filters>
+        <Input 
+          type="text" 
+          name="filtroNome"
+          id="filtroNome"
+          label="Nome"
+          placeholder="Digite o nome"
+          md="3"
+          sm="3"
+          cols="6"
+          
+          
+          v-model="formFiltro.nome"
+        />
+      </template>
+    </FilterForm>
+
+
+
+
+
+
+
+
     <!--A tabela toda será gerada na linha abaixo, só é preciso repetir em outras janelas o nome da props com os dados-->
     <Tables :dados="props.usuarios_cadastrados" :acoes="acoes" />
   </Auth>

@@ -2,7 +2,7 @@
   <div class="min-vh-100" style="background-color: #f4f4f9">
     <BNavbar type="light" variant="white" class="border-bottom">
       <BContainer class="d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center gap-2">
+        <div class="d-flex align-items-center gap-3">
           <BNavbarBrand class="d-none d-sm-block" href="/home">
             <img src="" height="20" alt="Logo" />
           </BNavbarBrand>
@@ -14,15 +14,15 @@
           >
             <span class="navbar-toggler-icon"></span>
           </BButton>
-          <!-- Dropdown Cadastros visível em sm+ -->
-          <BDropdown
-            class="d-none d-sm-block"
+          <!-- Link Cadastros visível em sm+ -->
+          <BButton
+            class="d-none d-sm-block text-dark  text-decoration-none"
             variant="link"
-            text="Cadastros"
-            toggle-class="text-dark"
+            @click="toggleCadastros"
+            :class="{ 'fw-bold text-primary': openCadastros }"
           >
-            <BDropdownItem href="/usuarios/">Usuários</BDropdownItem>
-          </BDropdown>
+            Cadastros
+          </BButton>
         </div>
 
         <BDropdown variant="link" toggle-class="text-dark" :text="nome" right>
@@ -31,15 +31,36 @@
       </BContainer>
     </BNavbar>
 
+    <!-- Submenu Desktop Cadastros -->
+    <div v-if="openCadastros" class="d-none d-sm-block border-bottom bg-white shadow-sm">
+      <BContainer class="d-flex gap-3 py-2">
+        <BLink href="/usuarios/" class="text-decoration-none text-dark submenu-link">Usuários</BLink>
+    
+      </BContainer>
+    </div>
+
     <!-- Sidebar Offcanvas para xs -->
     <BOffcanvas
       v-model="showOffcanvas"
       title="Menu"
       placement="start"
     >
-      <BNavbarNav>
-        <BNavItem href="/usuarios/">Usuários</BNavItem>
-        <!-- Adicione outros itens do menu aqui -->
+      <BNavbarNav class="flex-column">
+        <div>
+          <BButton
+            variant="link"
+            class="text-start text-dark text-decoration-none w-100"
+            @click="toggleCadastrosMobile"
+          >
+            Cadastros
+          </BButton>
+          <div v-if="openCadastrosMobile" class="ps-4 py-2 d-flex flex-column gap-2 submenu-mobile">
+            <BLink href="/usuarios/" class="text-decoration-none text-dark submenu-link">
+              <span class="me-2">└</span>Usuários
+            </BLink>
+            
+          </div>
+        </div>
       </BNavbarNav>
     </BOffcanvas>
 
@@ -83,7 +104,8 @@ import {
   BButton,
   BOffcanvas,
   BNavbarNav,
-  BNavItem
+  BNavItem,
+  BLink
 } from "bootstrap-vue-next";
 import Modal from "../Partials/Modal.vue";
 
@@ -101,8 +123,38 @@ const emit = defineEmits(["update:estado"]);
 
 // Estado para controlar o offcanvas
 const showOffcanvas = ref(false);
+
+// Estado para controlar o submenu de cadastros (desktop)
+const openCadastros = ref(false);
+
+// Estado para controlar o submenu de cadastros (mobile)
+const openCadastrosMobile = ref(false);
+
+// Função para toggle do submenu desktop
+const toggleCadastros = () => {
+  openCadastros.value = !openCadastros.value;
+};
+
+// Função para toggle do submenu mobile
+const toggleCadastrosMobile = () => {
+  openCadastrosMobile.value = !openCadastrosMobile.value;
+};
 </script>
 
-<style>
-/* estilos opcionais */
+<style scoped>
+/* Estilo para hover nos links do submenu */
+.submenu-link {
+  transition: color 0.2s ease;
+}
+
+.submenu-link:hover {
+  color: #0d6efd !important;
+}
+
+/* Estilo para o submenu mobile com borda à esquerda */
+.submenu-mobile {
+  border-left: 2px solid #0d6efd;
+  margin-left: 1rem;
+  background-color: #f8f9fa;
+}
 </style>

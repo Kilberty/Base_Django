@@ -9,7 +9,31 @@ from .models import Usuario
 
 def index(request):
     usuario_logado = request.user
-    usuarios = Usuario.objects.filter().values('id', 'nome', 'email').order_by('id')
+    
+    # Pega os parâmetros de filtro da URL (query params)
+    # Exemplo: /usuarios/?nome=João&email=joao@email.com
+    filtro_nome = request.GET.get('nome', '').strip()
+    # Adicione mais filtros conforme necessário:
+    # filtro_email = request.GET.get('email', '').strip()
+    # filtro_status = request.GET.get('status', '').strip()
+    
+    # Inicia a query base
+    usuarios = Usuario.objects.all()
+    
+    # Aplica os filtros se eles existirem
+    if filtro_nome:
+        # icontains = case insensitive contains (busca parcial, ignora maiúsculas/minúsculas)
+        usuarios = usuarios.filter(nome__icontains=filtro_nome)
+    
+    # Exemplo de como adicionar mais filtros:
+    # if filtro_email:
+    #     usuarios = usuarios.filter(email__icontains=filtro_email)
+    # if filtro_status:
+    #     usuarios = usuarios.filter(status=filtro_status)
+    
+    # Ordena e seleciona apenas os campos necessários
+    usuarios = usuarios.values('id', 'nome', 'email').order_by('id')
+    
     props = {
         "usuario": {
             "id": usuario_logado.id if usuario_logado.is_authenticated else None,
